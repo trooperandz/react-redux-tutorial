@@ -1,1 +1,3 @@
 # React Redux Tutorial from Stephen Grider
+
+### No notes at this time...
