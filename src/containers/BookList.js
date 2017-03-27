@@ -8,7 +8,12 @@ class BookList extends Component {
     renderList() {
         return this.props.books.map((book) => {
             return (
-                <li key={book.title} className="list-group-item">{book.title}</li>
+                <li
+                    key={book.title}
+                    onClick={() => this.props.selectBook(book)}
+                    className="list-group-item">
+                    {book.title}
+                </li>
             );
         });
     }
@@ -32,7 +37,17 @@ function mapStateToProps(state) {
     };
 }
 
+/**
+ * Anything returned from this function will end up as props
+ * on the BookList container.
+ */
 function mapDipatchToProps(dispatch) {
+    /**
+     * Whenever selectBook is called, the result should be passed
+     * to all of our reducers.
+     * The dispatch function receives actions like a filter, and sends
+     * them out to all reducers in the application.
+     */
     return bindActionCreators({ selectBook: selectBook}, dispatch);
 }
 
@@ -42,5 +57,6 @@ function mapDipatchToProps(dispatch) {
  * The container is a component that is aware of the state contained by Redux
  * Whenever our application state changes, this container will automatically re-render.
  * The object in the state function will be assigned as props to the component.
+ * Make the dispatch method selectBook available as a prop
  */
 export default connect(mapStateToProps, mapDipatchToProps)(BookList);
